@@ -7,6 +7,17 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/app
-    working_dir: /app
     command: /bin/bash
+    stdin_open: true
     tty: true
+    working_dir: /app
+    deploy:
+      restart_policy:
+        condition: none
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
